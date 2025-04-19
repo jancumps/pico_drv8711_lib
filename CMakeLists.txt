@@ -27,7 +27,7 @@ target_sources(pico_drv8711
         PUBLIC
         FILE_SET cxx_modules TYPE CXX_MODULES FILES
         ${drv8711_SOURCE_DIR}/source/drv8711.cpp
-        ${drv8711_SOURCE_DIR}/source//drv8711_config.cpp
+        ${drv8711_SOURCE_DIR}/source/drv8711_config.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/source/drv8711_pico.cpp
 )
 
