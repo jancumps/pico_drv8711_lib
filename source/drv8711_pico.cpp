@@ -19,7 +19,6 @@ public:
         uint cs, uint rx, uint tx, uint sck,
         uint n_sleep, uint reset) : drv8711::driver(),
         spi_(spi), baudrate_(baudrate),
-        spi_(spi), 
         cs_(cs), rx_(rx), tx_(tx), sck_(sck),
         n_sleep_(n_sleep), reset_(reset) {}
     
