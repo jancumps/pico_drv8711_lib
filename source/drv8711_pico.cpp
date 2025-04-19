@@ -1,6 +1,5 @@
 /**
- * DRV8711 Pico and project specific code
- * SPI, nSleep and reset pins + configs are set up here.
+ * Pico port of DRV8711 library https://github.com/jancumps/drv8711_lib
  */
 
 module;
