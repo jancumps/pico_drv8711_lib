@@ -15,9 +15,10 @@ export namespace drv8711_pico {
 
 class driver_pico : public drv8711::driver {
 public:    
-    driver_pico(spi_inst_t *spi, 
+    driver_pico(spi_inst_t *spi, uint baudrate,
         uint cs, uint rx, uint tx, uint sck,
         uint n_sleep, uint reset) : drv8711::driver(),
+        spi_(spi), baudrate_(baudrate),
         spi_(spi), 
         cs_(cs), rx_(rx), tx_(tx), sck_(sck),
         n_sleep_(n_sleep), reset_(reset) {}
@@ -35,7 +36,7 @@ public:
 
     void init_spi() override{
         // Enable SPI 0 at 1 MHz and connect to GPIOs
-        spi_init(spi_, 1000 * 1000);
+        spi_init(spi_, baudrate_);
         spi_set_format(spi_, 16, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST); // 16 bit registers
         gpio_set_function(rx_, GPIO_FUNC_SPI);
         gpio_set_pulls(rx_, true, false); // drv8711 outputs are open drain
@@ -82,6 +83,7 @@ private:
         asm volatile("nop \n nop \n nop");
     }
     spi_inst_t * spi_;
+    uint baudrate_;
     uint cs_;
     uint rx_;
     uint tx_;
