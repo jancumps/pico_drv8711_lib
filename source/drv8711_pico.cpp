@@ -41,7 +41,7 @@ public:
         gpio_set_function(tx_, GPIO_FUNC_SPI);
         // CS is active-high, invert pin action
         gpio_set_function(cs_, GPIO_FUNC_SPI);
-        gpio_set_outover(cs_,GPIO_OVERRIDE_INVERT );
+        gpio_set_outover(cs_, GPIO_OVERRIDE_INVERT);
     }
 
     void init_gpio() override{
