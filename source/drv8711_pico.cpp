@@ -24,9 +24,9 @@ public:
     
     // write to a register
     virtual void write(uint16_t reg) override {
-        cs_drive(true); // drv8711 has CS active high
+//        cs_drive(true); // drv8711 has CS active high
         spi_write16_blocking(spi_, &reg, 1);
-        cs_drive(false);
+//        cs_drive(false);
     }
     
     virtual void enable(bool enable) override {
