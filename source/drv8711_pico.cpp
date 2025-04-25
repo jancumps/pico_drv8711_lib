@@ -24,9 +24,7 @@ public:
     
     // write to a register
     virtual void write(uint16_t reg) override {
-//        cs_drive(true); // drv8711 has CS active high
         spi_write16_blocking(spi_, &reg, 1);
-//        cs_drive(false);
     }
     
     virtual void enable(bool enable) override {
@@ -41,13 +39,7 @@ public:
         gpio_set_pulls(rx_, true, false); // drv8711 outputs are open drain
         gpio_set_function(sck_, GPIO_FUNC_SPI);
         gpio_set_function(tx_, GPIO_FUNC_SPI);
-        // // CS is active-high, so we'll initialise it to a driven-low state
-        // // because Pico SPI doesn't support active high CS, we 'll bitbang with gpio
-        // // when communicating over SPI
-        // gpio_init(cs_);
-        // gpio_put(cs_, 0);
-        // gpio_set_dir(cs_, GPIO_OUT);
-        // CS is active-high, so we'll initialise it to a driven-low state
+        // CS is active-high, invert pin action
         gpio_set_function(cs_, GPIO_FUNC_SPI);
         gpio_set_outover(cs_,GPIO_OVERRIDE_INVERT );
     }
@@ -78,12 +70,6 @@ public:
     }
 
 private:
-    // the nop instructions are advised by sdk when bitbanging cs
-    inline void cs_drive( bool high) {
-        asm volatile("nop \n nop \n nop");
-        gpio_put(cs_, high? 1 : 0);
-        asm volatile("nop \n nop \n nop");
-    }
     spi_inst_t * spi_;
     uint baudrate_;
     uint cs_;
