@@ -31,6 +31,14 @@ public:
         gpio_put(n_sleep_, enable ? 1 : 0);
     }
 
+    virtual bool init() override {
+        init_gpio();
+        init_spi();
+        init_registers();
+        return true;
+    }
+
+private:
     void init_spi() override{
         // Enable SPI 0 at 1 MHz and connect to GPIOs
         spi_init(spi_, baudrate_);
