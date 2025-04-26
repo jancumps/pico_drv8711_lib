@@ -22,21 +22,19 @@ public:
         cs_(cs), rx_(rx), tx_(tx), sck_(sck),
         n_sleep_(n_sleep), reset_(reset) {}
     
-    // write to a register
-    virtual void write(uint16_t reg) override {
-        spi_write16_blocking(spi_, &reg, 1);
-    }
-    
-    virtual void enable(bool enable) override {
-        gpio_put(n_sleep_, enable ? 1 : 0);
-    }
-
     virtual bool init() override {
         init_gpio();
         init_spi();
         init_registers();
         return true;
     }
+
+    virtual void enable(bool enable) override {
+        gpio_put(n_sleep_, enable ? 1 : 0);
+    }
+
+
+    virtual bool microsteps(uint microsteps)
 
 private:
     void init_spi() override{
@@ -75,6 +73,11 @@ private:
         write(drv8711::reg_stall);
         write(drv8711::reg_drive);
         write(drv8711::reg_status);
+    }
+
+    // write to a register
+    virtual void write(uint16_t reg) override {
+        spi_write16_blocking(spi_, &reg, 1);
     }
 
 private:
