@@ -37,7 +37,7 @@ public:
     virtual bool microsteps(unsigned int microsteps) override {
         drv8711::reg_ctrl.mode = microsteps_mode(microsteps);
         write(drv8711::reg_ctrl);
-        return success;
+        return true;
     }
 
 private:
