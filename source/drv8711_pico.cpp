@@ -1,15 +1,14 @@
 /**
  * Pico port of DRV8711 library https://github.com/jancumps/drv8711_lib
- */
+*/
 
-import drv8711_config;
-
- module;
+module;
 
 #include "hardware/gpio.h"
 #include "hardware/spi.h"
 
 import drv8711;
+import drv8711_config;
 
 export module drv8711_pico;
 export namespace drv8711_pico {
