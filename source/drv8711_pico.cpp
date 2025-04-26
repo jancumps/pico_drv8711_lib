@@ -16,7 +16,7 @@ class drv8711_pico : public drv8711::drv8711_driver {
 public:    
     drv8711_pico(spi_inst_t *spi, uint baudrate,
         uint cs, uint rx, uint tx, uint sck,
-        uint n_sleep, uint reset) : drv8711_driver::driver(),
+        uint n_sleep, uint reset) : drv8711::drv8711_driver(),
         spi_(spi), baudrate_(baudrate),
         cs_(cs), rx_(rx), tx_(tx), sck_(sck),
         n_sleep_(n_sleep), reset_(reset) {}
