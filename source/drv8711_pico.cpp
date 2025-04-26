@@ -33,9 +33,6 @@ public:
         gpio_put(n_sleep_, enable ? 1 : 0);
     }
 
-
-    virtual bool microsteps(uint microsteps)
-
 private:
     void init_spi() override{
         // Enable SPI 0 at 1 MHz and connect to GPIOs
