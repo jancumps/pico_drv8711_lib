@@ -84,7 +84,7 @@ private:
         w_buffer = reg | 0b1000;
         w_buffer = w_buffer << 12;
         spi_write16_read16_blocking (spi_, (&w_buffer), (&r_buffer), 1);
-        return r_buffer;
+        return r_buffer & 0b0000111111111111; // first 4 read bits are undefined
     }
 
 private:
