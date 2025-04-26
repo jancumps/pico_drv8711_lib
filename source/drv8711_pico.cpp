@@ -39,7 +39,7 @@ private:
         spi_init(spi_, baudrate_);
         spi_set_format(spi_, 16, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST); // 16 bit registers
         gpio_set_function(rx_, GPIO_FUNC_SPI);
-        gpio_set_pulls(rx_, false, true); // drv8711 outputs are open drain
+        gpio_set_pulls(rx_, true, false); // drv8711 outputs are open drain
         gpio_set_function(sck_, GPIO_FUNC_SPI);
         gpio_set_function(tx_, GPIO_FUNC_SPI);
         // CS is active-high, invert pin action
