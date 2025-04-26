@@ -8,7 +8,6 @@ module;
 #include "hardware/spi.h"
 
 import drv8711;
-import drv8711_config;
 
 export module drv8711_pico;
 export namespace drv8711_pico {
