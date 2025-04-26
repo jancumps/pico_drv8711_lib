@@ -13,9 +13,9 @@ import drv8711_config;
 export module drv8711_pico;
 export namespace drv8711_pico {
 
-class driver_pico : public drv8711::driver {
+class drv8711_pico : public drv8711::driver {
 public:    
-    driver_pico(spi_inst_t *spi, uint baudrate,
+    drv8711_pico(spi_inst_t *spi, uint baudrate,
         uint cs, uint rx, uint tx, uint sck,
         uint n_sleep, uint reset) : drv8711::driver(),
         spi_(spi), baudrate_(baudrate),
