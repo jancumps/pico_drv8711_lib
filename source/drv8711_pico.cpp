@@ -83,9 +83,9 @@ private:
         uint16_t w_buffer;
         w_buffer = reg | 0b1000;
         w_buffer = w_buffer << 12;
-        spi_write_read_blocking (spi_, (uint8_t *)(&w_buffer), (uint8_t *)(&r_buffer), 2);
+        spi_write16_read16_blocking (spi_, (&w_buffer), (&r_buffer), 1);
         return r_buffer;
-    }    
+    }
 
 private:
     spi_inst_t * spi_;
