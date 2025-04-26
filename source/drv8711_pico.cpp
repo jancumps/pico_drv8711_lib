@@ -79,11 +79,12 @@ private:
 
     // read from a register
     virtual uint16_t read(uint16_t reg) override {
-        uint16_t buffer;
-        reg |= 0b1000;
-        reg = reg << 12;
-        spi_write_read_blocking (spi_, (uint8_t *)(&reg), (uint8_t *)(&buffer), 2);
-        return buffer;
+        uint16_t r_buffer;
+        uint16_t w_buffer;
+        w_buffer = reg | 0b1000;
+        w_buffer = w_buffer << 12;
+        spi_write_read_blocking (spi_, (uint8_t *)(&w_buffer), (uint8_t *)(&r_buffer), 2);
+        return r_buffer;
     }    
 
 private:
