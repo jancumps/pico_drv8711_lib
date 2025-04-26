@@ -82,7 +82,7 @@ private:
         uint16_t buffer;
         reg |= 0b1000;
         reg = reg << 12;
-        spi_write_read_blocking (spi_, &reg, &buffer, 2);
+        spi_write_read_blocking (spi_, (uint8_t *)(&reg), (uint8_t *)(&buffer), 2);
         return buffer;
     }    
 
