@@ -33,13 +33,6 @@ public:
         gpio_put(n_sleep_, enable ? 1 : 0);
     }
 
-    // changes config register settings
-    virtual bool microsteps(unsigned int microsteps) override {
-        drv8711::reg_ctrl.mode = microsteps_mode(microsteps);
-        write(drv8711::reg_ctrl);
-        return true;
-    }
-
 private:
     void init_spi() override{
         // Enable SPI 0 at 1 MHz and connect to GPIOs
@@ -83,6 +76,15 @@ private:
     virtual void write(uint16_t reg) override {
         spi_write16_blocking(spi_, &reg, 1);
     }
+
+    // read from a register
+    virtual uint16_t read(uint16_t reg) override {
+        uint16_t buffer;
+        reg |= 0b1000;
+        reg = reg << 12;
+        spi_write_read_blocking (spi_, &reg, &buff, 2);
+        return buffer;
+    }    
 
 private:
     spi_inst_t * spi_;
