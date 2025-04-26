@@ -33,42 +33,10 @@ public:
         gpio_put(n_sleep_, enable ? 1 : 0);
     }
 
+    // changes config register settings
     virtual bool microsteps(unsigned int microsteps) override {
-        bool success = true;
-        switch (microsteps) {
-        case 1: 
-            drv8711::reg_ctrl.mode = 0x0000;
-            break;
-        case 2: 
-            drv8711::reg_ctrl.mode = 0x0001;
-            break;
-        case 4: 
-            drv8711::reg_ctrl.mode = 0x0002;
-            break;
-        case 8: 
-            drv8711::reg_ctrl.mode = 0x0003;
-            break;
-        case 16: 
-            drv8711::reg_ctrl.mode = 0x0004;
-            break;
-        case 32: 
-            drv8711::reg_ctrl.mode = 0x0005;
-            break;
-        case 64: 
-            drv8711::reg_ctrl.mode = 0x0006;
-            break;
-        case 128:
-            drv8711::reg_ctrl.mode = 0x0007;
-            break;
-        case 256:
-            drv8711::reg_ctrl.mode = 0x0008;
-            break;
-        default:
-            success = false;
-        }
-        if (success) {
-            write(drv8711::reg_ctrl);
-        }
+        drv8711::reg_ctrl.mode = microsteps_mode(microsteps);
+        write(drv8711::reg_ctrl);
         return success;
     }
 
