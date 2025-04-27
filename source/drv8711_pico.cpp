@@ -30,7 +30,7 @@ private:
     // initialise all registers from the defaults
     // defined in module drv8711_config
     // developer can override values before calling
-    void init_registers() {
+    virtual void init_registers() {
         write(drv8711::reg_ctrl);
         write(drv8711::reg_torque);
         write(drv8711::reg_off);
@@ -41,7 +41,7 @@ private:
         write(drv8711::reg_status);
     }
     
-    void init_spi() override{
+    virtual void init_spi() override{
         // Enable SPI 0 at 1 MHz and connect to GPIOs
         spi_init(spi_, baudrate_);
         spi_set_format(spi_, 16, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST); // 16 bit registers
@@ -49,12 +49,18 @@ private:
         gpio_set_pulls(rx_, true, false); // drv8711 outputs are open drain
         gpio_set_function(sck_, GPIO_FUNC_SPI);
         gpio_set_function(tx_, GPIO_FUNC_SPI);
+        init_cs();
+    }
+
+    // users may want to use different CS with same SPI for several ICs
+    // and can do that by overriding this method
+    virtual void init_cs() override [
         // CS is active-high, invert pin action
         gpio_set_function(cs_, GPIO_FUNC_SPI);
         gpio_set_outover(cs_, GPIO_OVERRIDE_INVERT);
-    }
+    ]
 
-    void init_gpio() override{
+    virtual void init_gpio() override{
         // nsleep as output
         gpio_init(n_sleep_);
         gpio_put(n_sleep_, 0);
