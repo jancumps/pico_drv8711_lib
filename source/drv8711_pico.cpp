@@ -22,13 +22,6 @@ public:
         cs_(cs), rx_(rx), tx_(tx), sck_(sck),
         n_sleep_(n_sleep), reset_(reset) {}
     
-    virtual bool init() override {
-        init_gpio();
-        init_spi();
-        init_registers();
-        return true;
-    }
-
     virtual void enable(bool enable) override {
         gpio_put(n_sleep_, enable ? 1 : 0);
     }
