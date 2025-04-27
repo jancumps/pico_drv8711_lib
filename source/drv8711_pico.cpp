@@ -54,11 +54,11 @@ private:
 
     // users may want to use different CS with same SPI for several ICs
     // and can do that by overriding this method
-    virtual void init_cs() override [
+    virtual void init_cs() override {
         // CS is active-high, invert pin action
         gpio_set_function(cs_, GPIO_FUNC_SPI);
         gpio_set_outover(cs_, GPIO_OVERRIDE_INVERT);
-    ]
+    }
 
     virtual void init_gpio() override{
         // nsleep as output
