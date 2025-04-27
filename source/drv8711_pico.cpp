@@ -8,7 +8,6 @@ module;
 #include "hardware/spi.h"
 
 import drv8711;
-import drv8711_config;
 
 export module drv8711_pico;
 export namespace drv8711_pico {
@@ -56,20 +55,6 @@ private:
         gpio_init(reset_);
         gpio_put(reset_, 0);
         gpio_set_dir(reset_, GPIO_OUT);
-    }
-
-    // initialise all registers from the defaults
-    // defined in module drv8711_config
-    // developer can override values before calling
-    void init_registers() override{
-        write(drv8711::reg_ctrl);
-        write(drv8711::reg_torque);
-        write(drv8711::reg_off);
-        write(drv8711::reg_blank);
-        write(drv8711::reg_decay);
-        write(drv8711::reg_stall);
-        write(drv8711::reg_drive);
-        write(drv8711::reg_status);
     }
 
     // write to a register
