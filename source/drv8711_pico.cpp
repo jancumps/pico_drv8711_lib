@@ -86,7 +86,7 @@ private:
         return r_buffer & 0b0000111111111111; // first 4 read bits are undefined
     }
 
-private:
+protected:
     spi_inst_t * spi_;
     uint baudrate_;
     uint cs_;
